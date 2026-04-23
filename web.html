@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Undangan Pernikahan - Khrisna & Amira</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+
+:root {
+
+--gold: #C9A961;
+
+--ivory: #FFF8F0;
+
+--soft-black: #2F3E46;
+
+}
+
+body {
+
+font-family: 'Poppins', sans-serif;
+
+background-color: var(--ivory);
+
+color: var(--soft-black);
+
+overflow-x: hidden;
+
+}
+
+.font-serif-title { font-family: 'Playfair Display', serif; }
+
+.font-cursive { font-family: 'Great Vibes', cursive; }
+
+.bg-gold { background-color: var(--gold); }
+
+.text-gold { color: var(--gold); }
+
+.border-gold { border-color: var(--gold); }
+
+
+.parallax-bg {
+
+background-attachment: fixed;
+
+background-position: center;
+
+background-repeat: no-repeat;
+
+background-size: cover;
+
+}
+
+
+#cover {
+
+background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+
+}
+
+
+.scroll-reveal {
+
+opacity: 0;
+
+transform: translateY(30px);
+
+transition: all 0.8s ease-out;
+
+}
+
+.scroll-reveal.active {
+
+opacity: 1;
+
+transform: translateY(0);
+
+}
+
+
+/* Music Button Animation */
+
+@keyframes rotate {
+
+from { transform: rotate(0deg); }
+
+to { transform: rotate(360deg); }
+
+}
+
+.rotate-anim { animation: rotate 5s linear infinite; }
+
+
+.modal-overlay {
+
+background: rgba(0,0,0,0.9);
+
+display: none;
+
+position: fixed;
+
+inset: 0;
+
+z-index: 100;
+
+justify-content: center;
+
+align-items: center;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- Audio Element (Shane Filan - Beautiful in White instrumental style) -->
+
+<audio id="bgMusic" loop>
+
+<source src="https://raw.githubusercontent.com/adindrm/File/main/PAYUNG%20TEDUH%20-%20UNTUK%20PEREMPUAN%20YANG%20SEDANG%20DALAM%20PELUKAN.mp3" type="audio/mpeg">
+
+</audio>
+
+
+<!-- Music Control -->
+
+<button id="musicToggle" class="fixed bottom-6 right-6 z-50 bg-white p-3 rounded-full shadow-lg border border-gold hidden">
+
+<i id="musicIcon" data-lucide="music" class="text-gold"></i>
+
+</button>
+
+
+<!-- Initial Cover Overlay -->
+
+<div id="openingModal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center text-white bg-black/80 p-6 text-center transition-opacity duration-1000">
+
+<div class="mb-4">
+
+<p class="text-lg tracking-widest font-light mb-2">UNDANGAN PERNIKAHAN</p>
+
+<h1 class="text-5xl md:text-7xl font-cursive text-gold mb-4">Khrisna & Amira</h1>
+
+</div>
+
+<div class="mb-8">
+
+<p class="mb-2">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+
+<h2 id="guestName" class="text-2xl font-bold italic mb-6">Nama Tamu</h2>
+
+</div>
+
+<button onclick="openInvitation()" class="bg-gold hover:bg-[#b89850] text-white px-8 py-3 rounded-full flex items-center gap-2 transition-all transform hover:scale-105 animate-bounce">
+
+<i data-lucide="mail-open"></i> Buka Undangan
+
+</button>
+
+</div>
+
+
+<!-- Hero Section -->
+
+<section id="cover" class="h-screen w-full flex items-center justify-center text-center text-white px-4">
+
+<div class="animate__animated animate__fadeIn">
+
+<p class="text-xl tracking-[0.3em] font-light mb-4">THE WEDDING OF</p>
+
+<h1 class="text-6xl md:text-8xl font-cursive text-gold mb-6">Khrisna & Amira</h1>
+
+<p class="text-xl md:text-2xl font-serif-title tracking-widest">20 JULI 2026</p>
+
+</div>
+
+</section>
+
+
+<!-- Quote Section -->
+
+<section class="py-20 px-6 max-w-4xl mx-auto text-center scroll-reveal">
+
+<i data-lucide="quote" class="mx-auto text-gold mb-6 w-10 h-10"></i>
+
+<p class="text-lg italic leading-relaxed text-gray-700">
+
+"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu istri-istri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."
+
+</p>
+
+<p class="mt-4 font-bold text-gold">QS Ar-Rum: 21</p>
+
+</section>
+
+
+<!-- Profile Section -->
+
+<section class="py-20 px-6 bg-white">
+
+<div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center text-center">
+
+<div class="scroll-reveal">
+
+<div class="w-64 h-64 mx-auto rounded-full border-4 border-gold p-2 mb-6">
+
+<img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1974&auto=format&fit=crop" alt="Khrisna" class="w-full h-full object-cover rounded-full">
+
+</div>
+
+<h2 class="text-4xl font-cursive text-gold mb-2">Khrisna Juvano Agung Mukhti</h2>
+
+<p class="text-gray-600 italic">Putra dari Bapak & Ibu</p>
+
+</div>
+
+<div class="scroll-reveal">
+
+<div class="w-64 h-64 mx-auto rounded-full border-4 border-gold p-2 mb-6">
+
+<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop" alt="Amira" class="w-full h-full object-cover rounded-full">
+
+</div>
+
+<h2 class="text-4xl font-cursive text-gold mb-2">Nur Amira Syafira</h2>
+
+<p class="text-gray-600 italic">Putri dari Bapak & Ibu</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- Countdown Section -->
+
+<section class="py-20 px-6 bg-gold text-white text-center">
+
+<h2 class="text-3xl font-serif-title mb-8">Menuju Hari Bahagia</h2>
+
+<div id="countdown" class="flex justify-center gap-4 md:gap-10">
+
+<div class="flex flex-col bg-white/20 p-4 rounded-lg w-20 md:w-28 backdrop-blur-sm">
+
+<span id="days" class="text-3xl md:text-5xl font-bold">00</span>
+
+<span class="text-sm">Hari</span>
+
+</div>
+
+<div class="flex flex-col bg-white/20 p-4 rounded-lg w-20 md:w-28 backdrop-blur-sm">
+
+<span id="hours" class="text-3xl md:text-5xl font-bold">00</span>
+
+<span class="text-sm">Jam</span>
+
+</div>
+
+<div class="flex flex-col bg-white/20 p-4 rounded-lg w-20 md:w-28 backdrop-blur-sm">
+
+<span id="minutes" class="text-3xl md:text-5xl font-bold">00</span>
+
+<span class="text-sm">Menit</span>
+
+</div>
+
+<div class="flex flex-col bg-white/20 p-4 rounded-lg w-20 md:w-28 backdrop-blur-sm">
+
+<span id="seconds" class="text-3xl md:text-5xl font-bold">00</span>
+
+<span class="text-sm">Detik</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- Event Info Section -->
+
+<section class="py-20 px-6 bg-[#FFF8F0]">
+
+<div class="max-w-6xl mx-auto">
+
+<h2 class="text-4xl font-serif-title text-center text-gold mb-12">Acara Pernikahan</h2>
+
+<div class="grid md:grid-cols-2 gap-8">
+
+<!-- Akad -->
+
+<div class="bg-white p-8 rounded-2xl shadow-xl border-t-8 border-gold text-center scroll-reveal">
+
+<i data-lucide="heart" class="mx-auto text-gold mb-4 w-12 h-12"></i>
+
+<h3 class="text-2xl font-bold mb-4">Akad Nikah</h3>
+
+<p class="mb-2">Senin, 20 Juli 2026</p>
+
+<p class="mb-4">Pukul 08:00 WITA - Selesai</p>
+
+<hr class="my-4 border-gold/30">
+
+<p class="font-bold">Lokasi:</p>
+
+<p class="mb-6">BTN Kariango Residence, Jl. Poros Kariango, Maros</p>
+
+<a href="https://maps.app.goo.gl/BUiVynH9BKm9qD7g7?g_st=ac" target="_blank" class="inline-block bg-gold text-white px-6 py-3 rounded-full hover:bg-black transition-colors">
+
+Petunjuk Lokasi
+
+</a>
+
+</div>
+
+<!-- Resepsi -->
+
+<div class="bg-white p-8 rounded-2xl shadow-xl border-t-8 border-gold text-center scroll-reveal">
+
+<i data-lucide="users" class="mx-auto text-gold mb-4 w-12 h-12"></i>
+
+<h3 class="text-2xl font-bold mb-4">Resepsi</h3>
+
+<p class="mb-2">Senin, 20 Juli 2026</p>
+
+<p class="mb-4">Pukul 10:00 - 13:00 WITA</p>
+
+<hr class="my-4 border-gold/30">
+
+<p class="font-bold">Lokasi:</p>
+
+<p class="mb-6">BTN Kariango Residence, Jl. Poros Kariango, Maros</p>
+
+<a href="https://maps.app.goo.gl/BUiVynH9BKm9qD7g7?g_st=ac" target="_blank" class="inline-block bg-gold text-white px-6 py-3 rounded-full hover:bg-black transition-colors">
+
+Petunjuk Lokasi
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- Gallery Section -->
+
+<section class="py-20 px-4 bg-white">
+
+<h2 class="text-4xl font-serif-title text-center text-gold mb-12">Galeri Prewedding</h2>
+
+<div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4">
+
+<img onclick="viewFullImage(this.src)" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-80 transition scroll-reveal" alt="Prewedd 1">
+
+<img onclick="viewFullImage(this.src)" src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=2070&auto=format&fit=crop" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-80 transition scroll-reveal" alt="Prewedd 2">
+
+<img onclick="viewFullImage(this.src)" src="https://images.unsplash.com/photo-1510076857177-7470076d4098?q=80&w=2072&auto=format&fit=crop" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-80 transition scroll-reveal" alt="Prewedd 3">
+
+<img onclick="viewFullImage(this.src)" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-80 transition scroll-reveal" alt="Prewedd 4">
+
+<img onclick="viewFullImage(this.src)" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-80 transition scroll-reveal" alt="Prewedd 5">
+
+<img onclick="viewFullImage(this.src)" src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=2070&auto=format&fit=crop" class="w-full h-64 object-cover rounded-lg cursor-pointer hover:opacity-80 transition scroll-reveal" alt="Prewedd 6">
+
+</div>
+
+</section>
+
+
+<!-- RSVP Section -->
+
+<section class="py-20 px-6 bg-gold/10">
+
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-xl scroll-reveal">
+
+<h2 class="text-3xl font-serif-title text-center text-gold mb-8">Konfirmasi Kehadiran</h2>
+
+<form id="rsvpForm" class="space-y-4">
+
+<div>
+
+<label class="block mb-2 font-semibold">Nama Lengkap</label>
+
+<input type="text" id="rsvpName" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-semibold">Kehadiran</label>
+
+<select id="rsvpStatus" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+
+<option value="Hadir">Hadir</option>
+
+<option value="Tidak Hadir">Tidak Hadir</option>
+
+</select>
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-semibold">Jumlah Tamu</label>
+
+<input type="number" id="rsvpCount" min="1" max="5" value="1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold">
+
+</div>
+
+<div>
+
+<label class="block mb-2 font-semibold">Ucapan / Doa</label>
+
+<textarea id="rsvpMessage" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-gold" placeholder="Tuliskan ucapan selamat..."></textarea>
+
+</div>
+
+<button type="submit" class="w-full bg-gold text-white py-4 rounded-lg font-bold hover:bg-black transition-colors">
+
+Kirim Konfirmasi
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- Guest Book / Wishes Section -->
+
+<section class="py-20 px-6 bg-white">
+
+<div class="max-w-4xl mx-auto">
+
+<h2 class="text-3xl font-serif-title text-center text-gold mb-12">Ucapan & Doa</h2>
+
+<div id="wishesList" class="space-y-4 max-h-96 overflow-y-auto p-4 border border-gold/20 rounded-xl">
+
+<!-- Mock Data -->
+
+<div class="bg-gold/5 p-4 rounded-lg border-l-4 border-gold">
+
+<p class="font-bold">Keluarga Besar Juvano</p>
+
+<p class="text-sm text-gray-600">Semoga menjadi keluarga sakinah mawaddah warahmah. Aamiin.</p>
+
+</div>
+
+<div class="bg-gold/5 p-4 rounded-lg border-l-4 border-gold">
+
+<p class="font-bold">Sahabat Amira</p>
+
+<p class="text-sm text-gray-600">Happy wedding Amira & Khrisna! Bahagia selamanya!</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- Footer -->
+
+<footer class="py-12 bg-soft-black text-white text-center">
+
+<p class="text-sm uppercase tracking-widest mb-4">Merupakan Kehormatan Bagi Kami</p>
+
+<h2 class="text-4xl font-cursive text-gold mb-4">Khrisna & Amira</h2>
+
+<p class="text-gray-400">Sampai jumpa di hari bahagia kami!</p>
+
+</footer>
+
+
+<!-- Fullscreen Image View -->
+
+<div id="fullView" class="modal-overlay" onclick="this.style.display='none'">
+
+<img id="fullImg" src="" class="max-w-[90%] max-h-[90%] object-contain" alt="Full Image">
+
+</div>
+
+
+<script>
+
+// Initialize Icons
+
+lucide.createIcons();
+
+
+// Guest Name from URL (?to=Nama+Tamu)
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const to = urlParams.get('to');
+
+if (to) {
+
+document.getElementById('guestName').innerText = to;
+
+document.getElementById('rsvpName').value = to;
+
+}
+
+
+// Open Invitation Logic
+
+function openInvitation() {
+
+const modal = document.getElementById('openingModal');
+
+const music = document.getElementById('bgMusic');
+
+const toggle = document.getElementById('musicToggle');
+
+modal.style.opacity = '0';
+
+setTimeout(() => {
+
+modal.style.display = 'none';
+
+toggle.classList.remove('hidden');
+
+music.play();
+
+document.getElementById('musicIcon').classList.add('rotate-anim');
+
+}, 1000);
+
+}
+
+
+// Music Control Logic
+
+const music = document.getElementById('bgMusic');
+
+const musicToggle = document.getElementById('musicToggle');
+
+const musicIcon = document.getElementById('musicIcon');
+
+let isPlaying = false;
+
+
+musicToggle.onclick = () => {
+
+if (isPlaying) {
+
+music.pause();
+
+musicIcon.classList.remove('rotate-anim');
+
+} else {
+
+music.play();
+
+musicIcon.classList.add('rotate-anim');
+
+}
+
+isPlaying = !isPlaying;
+
+};
+
+
+// Countdown Logic
+
+const weddingDate = new Date("July 20, 2026 08:00:00").getTime();
+
+setInterval(() => {
+
+const now = new Date().getTime();
+
+const diff = weddingDate - now;
+
+const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+document.getElementById("days").innerText = d < 10 ? '0'+d : d;
+
+document.getElementById("hours").innerText = h < 10 ? '0'+h : h;
+
+document.getElementById("minutes").innerText = m < 10 ? '0'+m : m;
+
+document.getElementById("seconds").innerText = s < 10 ? '0'+s : s;
+
+}, 1000);
+
+
+// Scroll Reveal Animation
+
+const reveals = document.querySelectorAll(".scroll-reveal");
+
+function reveal() {
+
+reveals.forEach(el => {
+
+const windowHeight = window.innerHeight;
+
+const elementTop = el.getBoundingClientRect().top;
+
+const elementVisible = 150;
+
+if (elementTop < windowHeight - elementVisible) {
+
+el.classList.add("active");
+
+}
+
+});
+
+}
+
+window.addEventListener("scroll", reveal);
+
+reveal(); // Trigger on load
+
+
+// Gallery Modal
+
+function viewFullImage(src) {
+
+const modal = document.getElementById('fullView');
+
+const img = document.getElementById('fullImg');
+
+img.src = src;
+
+modal.style.display = 'flex';
+
+}
+
+
+// RSVP Form Handling
+
+document.getElementById('rsvpForm').onsubmit = function(e) {
+
+e.preventDefault();
+
+const name = document.getElementById('rsvpName').value;
+
+const msg = document.getElementById('rsvpMessage').value;
+
+// Add to UI list
+
+const list = document.getElementById('wishesList');
+
+const newWish = document.createElement('div');
+
+newWish.className = "bg-gold/5 p-4 rounded-lg border-l-4 border-gold animate__animated animate__fadeInLeft";
+
+newWish.innerHTML = `<p class="font-bold">${name}</p><p class="text-sm text-gray-600">${msg || 'Berhasil mengonfirmasi kehadiran.'}</p>`;
+
+list.prepend(newWish);
+
+this.reset();
+
+alert("Terima kasih atas konfirmasinya!");
+
+};
+
+</script>
+
+</body>
+
+</html>
+
