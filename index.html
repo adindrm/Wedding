@@ -21,6 +21,9 @@
 <meta property="twitter:description" content="Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.">
 <meta property="twitter:image" content="https://raw.githubusercontent.com/adindrm/File/main/fotodua.jpg">
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -533,7 +536,7 @@ lucide.createIcons();
 
 const urlParams = new URLSearchParams(window.location.search);
 
-const to = urlParams.get('to');
+const to = urlParams.get('untuk');
 
 if (to) {
 
@@ -676,35 +679,78 @@ modal.style.display = 'flex';
 }
 
 
-// RSVP Form Handling
+// RSVP Form Handling with Google Sheets Integration
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzScKjvaFB_sl3fWnUTu61_HxZB75w30qJas4M8wxQaOpVrN-6un_3INQA7wQJL3MFG/exec';
 
-document.getElementById('rsvpForm').onsubmit = function(e) {
+// Fungsi memuat ucapan dari Google Sheets
+async function loadWishes() {
+    const list = document.getElementById('wishesList');
+    try {
+        const response = await fetch(scriptURL);
+        const data = await response.json();
+        list.innerHTML = ''; // Bersihkan list awal
+        
+        data.reverse().forEach(row => {
+            const newWish = document.createElement('div');
+            newWish.className = "bg-gold/5 p-4 rounded-lg border-l-4 border-gold animate__animated animate__fadeIn";
+            newWish.innerHTML = `<p class="font-bold">${row[0]}</p><p class="text-sm text-gray-600">${row[3] || 'Berhasil mengonfirmasi kehadiran.'}</p>`;
+            list.appendChild(newWish);
+        });
+    } catch (error) {
+        console.error('Gagal memuat ucapan!', error);
+    }
+}
 
-e.preventDefault();
+// Panggil fungsi saat halaman dibuka
+loadWishes();
 
-const name = document.getElementById('rsvpName').value;
+document.getElementById('rsvpForm').onsubmit = async function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.disabled = true;
+    btn.innerText = "Mengirim...";
 
-const msg = document.getElementById('rsvpMessage').value;
+    const formData = {
+        name: document.getElementById('rsvpName').value,
+        status: document.getElementById('rsvpStatus').value,
+        count: document.getElementById('rsvpCount').value,
+        message: document.getElementById('rsvpMessage').value
+    };
 
-// Add to UI list
+    try {
+        await fetch(scriptURL, {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        });
+        
+        Swal.fire({
+            title: 'Terima Kasih!',
+            text: 'Konfirmasi dan doa Anda telah kami terima.',
+            icon: 'success',
+            confirmButtonColor: '#C9A961',
+            confirmButtonText: 'Tutup',
+            background: '#FFF8F0'
+        });
 
-const list = document.getElementById('wishesList');
-
-const newWish = document.createElement('div');
-
-newWish.className = "bg-gold/5 p-4 rounded-lg border-l-4 border-gold animate__animated animate__fadeInLeft";
-
-newWish.innerHTML = `<p class="font-bold">${name}</p><p class="text-sm text-gray-600">${msg || 'Berhasil mengonfirmasi kehadiran.'}</p>`;
-
-list.prepend(newWish);
-
-this.reset();
-
-alert("Terima kasih atas konfirmasinya!");
-
+        this.reset();
+        loadWishes(); // Refresh list otomatis
+    } catch (error) {
+        Swal.fire({
+            title: 'Maaf!',
+            text: 'Terjadi kesalahan saat mengirim.',
+            icon: 'error',
+            confirmButtonColor: '#C9A961'
+        });
+    } finally {
+        btn.disabled = false;
+        btn.innerText = "Kirim Konfirmasi";
+    }
 };
 
+
+
 </script>
+
 
 </body>
 
